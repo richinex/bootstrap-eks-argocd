@@ -9,7 +9,7 @@ locals {
   spec:
     project: default
     source:
-      repoURL: https://github.com/PacktPublishing/ArgoCD-in-Practice.git
+      repoURL: https://github.com/richinex/bootstrap-eks-argocd.git
       targetRevision: HEAD
       path: ch05/applications/master-utilities
       helm:
