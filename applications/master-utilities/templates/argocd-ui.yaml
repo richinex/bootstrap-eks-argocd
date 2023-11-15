@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/richinex/bootstrap-eks-argocd.git
     targetRevision: HEAD
-    path: ch05/applications/argocd-ui
+    path: applications/argocd-ui
 
   destination:
     namespace: argocd-ui
