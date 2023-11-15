@@ -1,0 +1,22 @@
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+metadata:
+  namespace: istio-system
+  name: istio-control-plane
+spec:
+  profile: default
+  components:
+    ingressGateways:
+    - namespace: istio-system
+      name: istio-ingressgateway
+      enabled: true
+      k8s:
+        serviceAnnotations:
+          service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+          service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "arn:aws:acm:us-east-1:558736058516:certificate/20fda8ab-dd26-42a8-9e3d-f000f0915bf9"
+          service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
+          service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "https"
+          service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "60"
+  addonComponents:
+    prometheus:
+      enabled: false

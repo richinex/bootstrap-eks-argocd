@@ -1,0 +1,8 @@
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+
+externalDNS:
+  iamRole: arn:aws:iam::558736058516:role/external-dns-role
+  domain: richinex-argocd.com
+  txtOwnerID: Z03148981O4XYH9HIY6K2
