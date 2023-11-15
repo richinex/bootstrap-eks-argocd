@@ -32,6 +32,12 @@ variable "domain" {
   description = "Domain name"
 }
 
+variable "ssl_cert_arn" {
+  type = string
+  description = "The SSL arn"
+}
+
+
 variable "zone_id" {
   type = string
   description = "The ID of Route53 hosted zone"
