@@ -83,9 +83,47 @@ resource "local_file" "istio_values_yaml" {
 }
 
 
+resource "null_resource" "create_master_utilities_file" {
+  triggers = {
+    content = local.master_utils_values
+  }
+
+  provisioner "local-exec" {
+    command = "echo '${local.master_utils_values}' > ${path.module}/../k8s-bootstrap/base/master-utilities.yaml"
+  }
+}
+
+resource "null_resource" "create_master_utilities_values_yaml" {
+  triggers = {
+    content = local.values_dev
+  }
+
+  provisioner "local-exec" {
+    command = "echo '${local.values_dev}' > ${path.module}/../applications/master-utilities/values.yaml"
+  }
+}
+
+resource "null_resource" "create_istio_values_yaml" {
+  triggers = {
+    content = local.istio_values_dev
+  }
+
+  provisioner "local-exec" {
+    command = "echo '${local.istio_values_dev}' > ${path.module}/../applications/istio-control-plane/istio-control-plane.yaml"
+  }
+}
+
+
 data "kustomization_build" "argocd" {
   path = "../k8s-bootstrap/bootstrap"
+
+  depends_on = [
+    null_resource.create_master_utilities_file,
+    null_resource.create_master_utilities_values_yaml,
+    null_resource.create_istio_values_yaml
+  ]
 }
+
 
 resource "kustomization_resource" "argocd" {
   for_each = data.kustomization_build.argocd.ids
